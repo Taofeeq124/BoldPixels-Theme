@@ -74,6 +74,22 @@ function custom_excerpt_length($length)
 }
 add_filter('excerpt_length', 'custom_excerpt_length', 999);
 
+register_taxonomy(
+    'portfolio_category',
+    'portfolios',
+    array(
+        'labels' => array(
+            'name' => __('Portfolio Categories', 'boldpixels'),
+            'singular_name' => __('Portfolio Category', 'boldpixels'),
+        ),
+        'public' => true,
+        'hierarchical' => true,
+        'show_ui' => true,
+        'show_in_rest' => true,
+    )
+);
+
+
 
 // Custom Post Type
 
@@ -150,8 +166,45 @@ function boldpixels_custom_post_type()
             'menu_icon' => 'dashicons-groups',
         )
     );
-}
 
+
+    // custom post type for Portfolio
+    register_post_type(
+        'portfolios',
+        array(
+            'labels' => array(
+                'name' => __('Portfolios', 'boldpixels'),
+                'singular_name' => __('Portfolio', 'boldpixels'),
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'show_ui' => true,
+            'show_in_rest' => true,
+            'supports' => array('title', 'editor', 'thumbnail'),
+            'menu_icon' => 'dashicons-format-gallery',
+        )
+    );
+
+
+
+    // custom post type for Galleries
+    register_post_type(
+        'Galleries',
+        array(
+            'labels' => array(
+                'name' => __('Galleries', 'boldpixels'),
+                'singular_name' => __('Gallery', 'boldpixels'),
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'show_ui' => true,
+            'show_in_rest' => true,
+            'supports' => array('title', 'thumbnail'),
+            'menu_icon' => 'dashicons-format-gallery',
+        )
+    );
+
+}
 
 add_action('init', 'boldpixels_custom_post_type');
 
